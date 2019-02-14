@@ -1,0 +1,63 @@
+<html>
+
+    <head>
+        <link rel="stylesheet" href="dynamic.css">
+        <meta name="viewport" content="width=device-width ,initial-scale=1.0">
+    </head>
+
+    <body>
+        <div class="todo-container">
+            <h1>
+                TODO
+            </h1>
+            <section id="todo_list_add"></section>
+            <h1>DONE</h1>
+            <section id="done_list_add"></section>
+            <div class="add-button">
+                <button onclick="openPrompt()">+</button>
+            </div>
+        </div>
+
+        <script>
+            var todoarray = ['Have breakfast', 'Having Breakfast at CTR', 'Go on walk in the evening', 'Complete Assignments'];
+            var donearray = ['Hang out with friends', 'Go to bed '];
+
+            function addlist(incoming_index) {
+                donearray.push(todoarray[incoming_index]);
+                todoarray = todoarray.filter((element, index_value) => { index_value !== incoming_index; });
+                addItems();
+                doneItems();
+            }
+
+            function addItems() {
+                var todo_variable = todoarray.map((current_value, index_value) => {    //to add todo items into my todo-list
+                    return `<ul class="todo-list" id="todo-list">
+                    <li class="todo-list-item">${current_value}<input type="checkbox" class="check" 
+                    onClick="addlist(${index_value})"></li>
+                </ul>`
+                });
+                let todo_assign = document.getElementById("todo_list_add"); //to will place todovariable into the todo list
+                todo_assign.innerHTML = todo_variable.join('');
+            }
+            function doneItems() {
+                var done_variable = donearray.map((current_value, index_value) => {
+                    return `<ul class="todo-done">
+                <li class="todo-done-list">${current_value}<input type="checkbox" onClick="deletefunction(${index_value})" class="check"></li>
+            </ul>`
+                });
+                let done_assign = document.getElementById("done_list_add"); //to will place todovariable into the todo list
+                done_assign.innerHTML = done_variable.join('');
+            }
+            function openPrompt() {
+                var todo_text = window.prompt("Add the next ToDO list");
+                todoarray.push(todo_text);
+                addItems();
+                doneItems
+
+            }
+            addItems();
+            doneItems();
+        </script>
+    </body>
+
+</html>
